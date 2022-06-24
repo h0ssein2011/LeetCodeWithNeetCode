@@ -11,24 +11,22 @@ class Solution:
         
         return max(max_price - minPrice,0)
 
-# Two Pointers Solution with O(n) time complexity
+# Sliding window Solution with O(n) time complexity
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        l , r = 0 , len(prices) - 1
-        min_price , max_price = 0 , 0
-        profit = max_price - min_price
-        while l < r :
-            print(l,'-->',r)
-            if prices[l+1] <  prices[l]:
-                
-                min_price = prices[l+1]
-                
-            if prices[r - 1] >  prices[r]:
-                
-                max_price = prices[r-1]
-                 
-            l , r = l+1 , r - 1
-            print('max_is:',max_price)
-            print('min_is:',min_price)
-            
-        return max_price - min_price
+        l , r = 0 ,  1
+        
+        Max_profit = 0
+        
+        while r < len(prices) :
+            # print( 'L:',l,'R:',r )
+            #check profitable transaction
+            if prices[l] < prices[r]:
+                profit = prices[r] - prices[l]
+                Max_profit = max(Max_profit , profit)
+            else :
+                l = r
+            r += 1
+            # print('Max_profit-->',Max_profit)
+
+        return Max_profit
